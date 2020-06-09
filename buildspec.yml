@@ -1,0 +1,21 @@
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: echo Building!
+	- mvn clean install
+- stage: Test
+  jobs:
+  - job: TestOnWindows
+    steps:
+    - script: echo Testing on Windows!
+  - job: TestOnLinux
+    steps:
+    - script: echo Testing on Linux!
+- stage: Deploy
+  jobs:
+  - job: Deploy
+    steps:
+    - script: echo Deploying the code!
+	- mvn deploy -DmuleDeploy -Dusername=pbheemse -Dpassword=Kumar252@ -Denvironment=DEV -DworkerType=MICRO -Dworkers=1 -Dregion=us-west-2
